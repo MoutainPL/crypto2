@@ -23,7 +23,7 @@ cfg_if! {
                 // FIXME: It will have performance lost. We should find a better way.
                 #[inline]
                 fn transform(state: &mut [u32; 8], block: &[u8]) {
-                    if std::is_x86_feature_detected!("sha") {
+                    if std::arch::is_x86_feature_detected!("sha") {
                         x86::transform(state, block)
                     } else {
                         generic::transform(state, block)
@@ -43,7 +43,7 @@ cfg_if! {
                 mod generic;
 
                 fn transform(state: &mut [u32; 8], block: &[u8]) {
-                    if std::is_aarch64_feature_detected!("sha2") {
+                    if std::arch::is_aarch64_feature_detected!("sha2") {
                         aarch64::transform(state, block)
                     } else {
                         generic::transform(state, block)
