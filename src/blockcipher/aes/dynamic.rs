@@ -27,12 +27,12 @@ macro_rules! impl_dynamic_dispatch {
             #[inline]
             pub fn new(key: &[u8]) -> $name {
                 #[cfg(any(target_arch = "x86", target_arch = "x86_64"))]
-                if std::is_x86_feature_detected!("aes") && std::is_x86_feature_detected!("sse2") {
+                if std::arch::is_x86_feature_detected!("aes") && std::arch::is_x86_feature_detected!("sse2") {
                     return $name::Platform(platform::$name::new(key));
                 }
 
                 #[cfg(target_arch = "aarch64")]
-                if std::is_aarch64_feature_detected!("aes") {
+                if std::arch::is_aarch64_feature_detected!("aes") {
                     return $name::Platform(platform::$name::new(key));
                 }
 
