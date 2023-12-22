@@ -14,12 +14,12 @@ impl GHash {
 
     pub fn new(h: &[u8; Self::BLOCK_LEN]) -> Self {
         #[cfg(any(target_arch = "x86", target_arch = "x86_64"))]
-        if std::is_x86_feature_detected!("sse2") && std::is_x86_feature_detected!("pclmulqdq") {
+        if std::arch::is_x86_feature_detected!("sse2") && std::arch::is_x86_feature_detected!("pclmulqdq") {
             return GHash::Platform(platform::GHash::new(h));
         }
 
         #[cfg(target_arch = "aarch64")]
-        if std::is_aarch64_feature_detected!("pmull") {
+        if std::arch::is_aarch64_feature_detected!("pmull") {
             return GHash::Platform(platform::GHash::new(h));
         }
 
